@@ -1,10 +1,40 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const express = require('express');
+const path = require('path');
+const sse = require('./server/sse.js');
 
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+const port = process.env.PORT || 5000
+const app = express();
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/', (req, res) => 
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+)
+
+app.get('/events', function(req, res) {
+  // Inform the client that this is a permanent connection
+  res.set('Connection', 'keep-alive')
+
+  // Inform the client that this connection uses the Server-Sent Events protocol
+  res.set('Content-Type', 'text/event-stream')
+
+  // Ask the client not to store data into its local cache, so that data read by
+  // the client is really sent by the server and not some old, out-of-date data
+  // received in the past.
+  res.set('Cache-Control', 'no-cache')
+
+  // TODO
+  sse.sendMissedEvents(req, res);
+
+  // TODO
+  sse.sendEvents(res);
+
+  // TODO
+  req.on('close', function() {
+    sse.stop();
+    res.end();
+  });
+});
+
+app.listen(port, () => console.log(`Listening on ${ port }`))
