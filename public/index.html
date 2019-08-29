@@ -17,6 +17,13 @@
     <li>Handles connection closure by the client (triggered by the "Stop updates" button).</li>
   </ul>
 
+  The interesting files are:
+  <ul>
+    <li><a href="https://github.com/pivanlo/new-rides/blob/master/index.js">index.js</a> (starts the server and routes client requests)</li>
+    <li><a href="https://github.com/pivanlo/new-rides/blob/master/server/sse.js">sse.js</a> (module for sending SSE messages)</li>
+    <li><a href="https://github.com/pivanlo/new-rides/blob/master/client/new_rides.js">new_rides.js</a> (the React component)</li>
+  </ul>
+
   <a href="https://github.com/pivanlo/new-rides">Here</a> I explain why I chose Server-Sent Events over WebSockets.
 </div>
 
