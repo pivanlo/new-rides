@@ -45,7 +45,7 @@ const sse = {
       // it could happen that an attempt to send an event to the client may be
       // made after the connection has been closed, which would raise an
       // exception. We avoid this by checking if the connection is still alive.
-      if (!response.finished) {
+      if (!res.finished) {
         let event = '';
 
         // When a network issue happens and the connection to an event stream is
