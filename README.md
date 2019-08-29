@@ -1,3 +1,5 @@
+Link to demo: https://new-rides.herokuapp.com/
+
 # How I built a live counter of new rides
 
 There are two general approaches:
@@ -44,6 +46,8 @@ The following info comes from [the Stack Overflow community](https://stackoverfl
 When there´s no need for sending binary data, or data from the client, SSEs might be a better option than WebSockets.
 
 If there was a plan to add bidirectional communication in the future, it might be better to use WebSockets from the beginning and avoid reimplementation. In this case, I would consider using something like [SockJS](http://sockjs.org), which uses polling transports as a fallback for old browsers and hosts behind restrictive proxies.
+
+Link to demo: https://new-rides.herokuapp.com/
 
 ### Browser support of SSEs
 
