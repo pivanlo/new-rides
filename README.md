@@ -1,39 +1,50 @@
-# node-js-getting-started
+# How I built a live counter of new rides
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+There are two general approaches:
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+1. Client pull:
 
-## Running Locally
+	- Short polling
+	- Long polling
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+2. Server push:
 
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+	- Web sockets
+	- Server-Sent Events (SSEs)
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+### Short polling
 
-## Deploying to Heroku
+- Making repeated requests to the server can consume a lot of resources. More about this [here](https://medium.com/system-design-blog/long-polling-vs-websockets-vs-server-sent-events-c43ba96df7c1).
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
+### Long polling
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+- There are many issues with long polling: timeouts, header overhead, latency, caching, etc. These are discussed [here](https://tools.ietf.org/id/draft-loreto-http-bidirectional-07.html#polling-issues).
 
-## Documentation
+### WebSockets
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+The following info comes from [the Stack Overflow community](https://stackoverflow.com/a/5326159).
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+- WebSockets connections can both send data to the browser and receive data from the browser.
+- Can transmit both binary data and UTF-8.
+- Some enterprise firewalls with packet inspection have trouble dealing with WebSockets.
+
+More about the real-world issues with WebSockets can be read [here](https://www.smashingmagazine.com/2018/02/sse-websockets-data-flow-http2/).
+
+### Server-Sent Events (SSEs)
+
+The following info comes from [the Stack Overflow community](https://stackoverflow.com/a/5326159).
+
+- SSE connections can only push data to the browser. 
+- Can only transmit UTF-8 data.
+- SSE suffers from a limitation to the maximum number of open connections.
+
+---
+
+### Why I chose SSEs
+When there´s no need for sending binary data, or data from the client, SSEs might be a better option than WebSockets.
+
+If there was a plan to add bidirectional communication in the future, it might be better to use WebSockets from the beginning and avoid reimplementation. In this case, I would consider using something like [SockJS](http://sockjs.org), which uses polling transports as a fallback for old browsers and hosts behind restrictive proxies.
+
+### Browser support of SSEs
+
+According to [caniuse.com](https://caniuse.com/#search=server%20sent%20events), Server-Sent Events are currently supported by all major browsers but Internet Explorer, Edge, and Opera Mini. I used the [AmvTek's EventSource](https://github.com/amvtek/EventSource) polyfill to support EventSource in browsers where it is not available.

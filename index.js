@@ -24,13 +24,13 @@ app.get('/events', function(req, res) {
   // received in the past.
   res.set('Cache-Control', 'no-cache')
 
-  // TODO
+  // Send missed events if the clients lost some events due to network issues
   sse.sendMissedEvents(req, res);
 
-  // TODO
+  // Schedule the sending of events to simulate new rides
   sse.sendEvents(res);
 
-  // TODO
+  // Handle the connection close request
   req.on('close', function() {
     sse.stop();
     res.end();

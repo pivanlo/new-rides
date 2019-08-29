@@ -6,6 +6,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * React component that displays a real-time counter and feed of new rides.
+ * Uses the EventSource API to interact with the Server-Sent Events (SSE) protocol.
+ */
 var NewRides = function (_React$Component) {
   _inherits(NewRides, _React$Component);
 
@@ -18,7 +22,9 @@ var NewRides = function (_React$Component) {
       rides: []
     };
 
+    // Initiate the connection 
     _this.eventSource = new EventSource("events");
+
     _this.handleNewRides = _this.handleNewRides.bind(_this);
     return _this;
   }
@@ -28,6 +34,11 @@ var NewRides = function (_React$Component) {
     value: function componentDidMount() {
       this.eventSource.addEventListener('newrides', this.handleNewRides);
     }
+
+    /**
+     * Updates the UI with the new data received
+     */
+
   }, {
     key: 'handleNewRides',
     value: function handleNewRides(e) {
@@ -35,6 +46,11 @@ var NewRides = function (_React$Component) {
       rides.push(e.data);
       this.setState({ rides: rides });
     }
+
+    /**
+     * Closes the connection 
+     */
+
   }, {
     key: 'stopUpdates',
     value: function stopUpdates() {

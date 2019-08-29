@@ -7,6 +7,21 @@
 </head>
 <body>
 
+<div>
+  <h1>About this implementation</h1>
+  <ul>
+    <li>Implemented with React and Node.js.</li>
+    <li>Uses Server-Sent Events (SSE) for real time communication.</li>
+    <li>Uses a polyfill to support browsers where "EventSource" is not available.</li>
+    <li>Handles connection recovery by sending missed event messages.</li>
+    <li>Handles connection closure by the client (triggered by the "Stop updates" button).</li>
+  </ul>
+
+  <a href="#">Here</a> I explain why I chose Server-Sent Events over WebSockets.
+</div>
+
+<hr>
+
 <div id="new_rides_container"></div>
 
 <!-- React -->

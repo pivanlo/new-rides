@@ -1,3 +1,7 @@
+/**
+ * React component that displays a real-time counter and feed of new rides.
+ * Uses the EventSource API to interact with the Server-Sent Events (SSE) protocol.
+ */
 class NewRides extends React.Component {
   constructor(props) {
     super(props);
@@ -6,7 +10,9 @@ class NewRides extends React.Component {
       rides: []
     };
 
+    // Initiate the connection 
     this.eventSource = new EventSource("events");
+
     this.handleNewRides = this.handleNewRides.bind(this);
   }
 
@@ -14,12 +20,18 @@ class NewRides extends React.Component {
     this.eventSource.addEventListener('newrides', this.handleNewRides)
   }
 
+  /**
+   * Updates the UI with the new data received
+   */
   handleNewRides(e) {
     const rides = this.state.rides.slice();
     rides.push(e.data);
     this.setState({rides: rides})
   }
 
+  /**
+   * Closes the connection 
+   */
   stopUpdates() {
     this.eventSource.close();
   }
