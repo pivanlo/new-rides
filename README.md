@@ -1,6 +1,6 @@
-Link to demo: https://new-rides.herokuapp.com/
+Link to demo: https://real-time-messages.herokuapp.com/
 
-# How I built a live counter of new rides
+# How I built a basic real-time web app
 
 There are two general approaches:
 

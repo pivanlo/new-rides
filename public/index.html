@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>New Rides</title>
+  <title>Messages</title>
   <link rel="shortcut icon" href="#">
 </head>
 <body>
@@ -10,7 +10,7 @@
 <div>
   <h1>About this implementation</h1>
   <ul>
-    <li>Implemented with React and Node.js.</li>
+    <li>Implemented with React, Node.js and the Express web framework.</li>
     <li>Uses Server-Sent Events (SSE) for real time communication.</li>
     <li>Uses a polyfill to support browsers where "EventSource" is not available.</li>
     <li>Handles connection recovery by sending missed event messages.</li>
@@ -21,15 +21,15 @@
   <ul>
     <li><a href="https://github.com/pivanlo/new-rides/blob/master/index.js">index.js</a> (starts the server and routes client requests)</li>
     <li><a href="https://github.com/pivanlo/new-rides/blob/master/server/sse.js">sse.js</a> (module for sending SSE messages)</li>
-    <li><a href="https://github.com/pivanlo/new-rides/blob/master/client/new_rides.js">new_rides.js</a> (the React component)</li>
+    <li><a href="https://github.com/pivanlo/new-rides/blob/master/client/messages.js">messages.js</a> (the React component)</li>
   </ul>
 
-  <a href="https://github.com/pivanlo/new-rides">Here</a> I explain why I chose Server-Sent Events over WebSockets.
+  <a href="https://github.com/pivanlo/real-time-web-app">Here</a> I explain why I chose Server-Sent Events over WebSockets.
 </div>
 
 <hr>
 
-<div id="new_rides_container"></div>
+<div id="messages_container"></div>
 
 <!-- React -->
 <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
@@ -39,7 +39,7 @@
 <script src="/js/eventsource.min.js"></script>
 
 <!-- NewRides React component -->
-<script src="/js/new_rides.js"></script>
+<script src="/js/messages.js"></script>
 
 </body>
 </html>

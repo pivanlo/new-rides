@@ -37,7 +37,7 @@ const sse = {
   },
 
   /**
-   * Schedules the sending of events to simulate new rides.
+   * Schedules the sending of events to simulate new messages.
    */
   sendEvents(res) {
     interval = setInterval(function () {
@@ -58,7 +58,7 @@ const sse = {
 
         // SSEs allows us to set the "event" property so that we can handle
         // different types of events in an easy way.
-        event += 'event: newrides\n';
+        event += 'event: newmessages\n';
 
         // For this example, the event data will consist of the current time.
         const time = (new Date()).toLocaleTimeString();

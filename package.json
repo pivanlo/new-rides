@@ -1,5 +1,5 @@
 {
-  "name": "new-rides",
+  "name": "real-time-web-app",
   "version": "1.0.0",
   "dependencies": {
     "babel-preset-react-app": "^3.1.2",

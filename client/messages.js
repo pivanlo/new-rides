@@ -1,32 +1,32 @@
 /**
- * React component that displays a real-time counter and feed of new rides.
+ * React component that displays a real-time counter and feed of messages coming from the server.
  * Uses the EventSource API to interact with the Server-Sent Events (SSE) protocol.
  */
-class NewRides extends React.Component {
+class Messages extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      rides: []
+      messages: []
     };
 
     // Initiate the connection 
     this.eventSource = new EventSource("events");
 
-    this.handleNewRides = this.handleNewRides.bind(this);
+    this.handleNewRides = this.handleNewMessages.bind(this);
   }
 
   componentDidMount() {
-    this.eventSource.addEventListener('newrides', this.handleNewRides)
+    this.eventSource.addEventListener('newmessages', this.handleNewMessages)
   }
 
   /**
    * Updates the UI with the new data received
    */
-  handleNewRides(e) {
-    const rides = this.state.rides.slice();
-    rides.push(e.data);
-    this.setState({rides: rides})
+  handleNewMessages(e) {
+    const messages = this.state.messages.slice();
+    messages.push(e.data);
+    this.setState({messages: messages})
   }
 
   /**
@@ -38,13 +38,13 @@ class NewRides extends React.Component {
 
   render() {
     let etcListItem;
-    if (this.state.rides.length > 10) {
+    if (this.state.messages.length > 10) {
       etcListItem = <li>...</li>;
     }
 
     return (
       <div>
-        <h1>New rides</h1>
+        <h1>Messages</h1>
 
         <div>
           <button onClick={() => this.stopUpdates()}>Stop updates</button>
@@ -54,13 +54,13 @@ class NewRides extends React.Component {
 
         <div>
           <span>Counter: </span>
-          <span>{this.state.rides.length}</span>
+          <span>{this.state.messages.length}</span>
         </div>
 
         <ul>
-          {this.state.rides.slice(-10).reverse().map((form, index) =>
+          {this.state.messages.slice(-10).reverse().map((form, index) =>
             <li key={index}>
-              Ride at {form}
+              New message at {form}
             </li>
           )}
           {etcListItem}
@@ -70,5 +70,5 @@ class NewRides extends React.Component {
   }
 }
 
-const domContainer = document.querySelector('#new_rides_container');
-ReactDOM.render(<NewRides />, domContainer);
+const domContainer = document.querySelector('#messages_container');
+ReactDOM.render(<Messages />, domContainer);
