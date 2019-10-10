@@ -13,7 +13,7 @@ class Messages extends React.Component {
     // Initiate the connection 
     this.eventSource = new EventSource("events");
 
-    this.handleNewRides = this.handleNewMessages.bind(this);
+    this.handleNewMessages = this.handleNewMessages.bind(this);
   }
 
   componentDidMount() {

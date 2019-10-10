@@ -7,32 +7,32 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * React component that displays a real-time counter and feed of new rides.
+ * React component that displays a real-time counter and feed of messages coming from the server.
  * Uses the EventSource API to interact with the Server-Sent Events (SSE) protocol.
  */
-var NewRides = function (_React$Component) {
-  _inherits(NewRides, _React$Component);
+var Messages = function (_React$Component) {
+  _inherits(Messages, _React$Component);
 
-  function NewRides(props) {
-    _classCallCheck(this, NewRides);
+  function Messages(props) {
+    _classCallCheck(this, Messages);
 
-    var _this = _possibleConstructorReturn(this, (NewRides.__proto__ || Object.getPrototypeOf(NewRides)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Messages.__proto__ || Object.getPrototypeOf(Messages)).call(this, props));
 
     _this.state = {
-      rides: []
+      messages: []
     };
 
     // Initiate the connection 
     _this.eventSource = new EventSource("events");
 
-    _this.handleNewRides = _this.handleNewRides.bind(_this);
+    _this.handleNewMessages = _this.handleNewMessages.bind(_this);
     return _this;
   }
 
-  _createClass(NewRides, [{
+  _createClass(Messages, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.eventSource.addEventListener('newrides', this.handleNewRides);
+      this.eventSource.addEventListener('newmessages', this.handleNewMessages);
     }
 
     /**
@@ -40,11 +40,11 @@ var NewRides = function (_React$Component) {
      */
 
   }, {
-    key: 'handleNewRides',
-    value: function handleNewRides(e) {
-      var rides = this.state.rides.slice();
-      rides.push(e.data);
-      this.setState({ rides: rides });
+    key: 'handleNewMessages',
+    value: function handleNewMessages(e) {
+      var messages = this.state.messages.slice();
+      messages.push(e.data);
+      this.setState({ messages: messages });
     }
 
     /**
@@ -62,7 +62,7 @@ var NewRides = function (_React$Component) {
       var _this2 = this;
 
       var etcListItem = void 0;
-      if (this.state.rides.length > 10) {
+      if (this.state.messages.length > 10) {
         etcListItem = React.createElement(
           'li',
           null,
@@ -76,7 +76,7 @@ var NewRides = function (_React$Component) {
         React.createElement(
           'h1',
           null,
-          'New rides'
+          'Messages'
         ),
         React.createElement(
           'div',
@@ -101,17 +101,17 @@ var NewRides = function (_React$Component) {
           React.createElement(
             'span',
             null,
-            this.state.rides.length
+            this.state.messages.length
           )
         ),
         React.createElement(
           'ul',
           null,
-          this.state.rides.slice(-10).reverse().map(function (form, index) {
+          this.state.messages.slice(-10).reverse().map(function (form, index) {
             return React.createElement(
               'li',
               { key: index },
-              'Ride at ',
+              'New message at ',
               form
             );
           }),
@@ -121,8 +121,8 @@ var NewRides = function (_React$Component) {
     }
   }]);
 
-  return NewRides;
+  return Messages;
 }(React.Component);
 
-var domContainer = document.querySelector('#new_rides_container');
-ReactDOM.render(React.createElement(NewRides, null), domContainer);
+var domContainer = document.querySelector('#messages_container');
+ReactDOM.render(React.createElement(Messages, null), domContainer);

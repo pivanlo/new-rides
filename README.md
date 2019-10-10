@@ -47,7 +47,7 @@ When there´s no need for sending binary data, or data from the client, SSEs mig
 
 If there was a plan to add bidirectional communication in the future, it might be better to use WebSockets from the beginning and avoid reimplementation. In this case, I would consider using something like [SockJS](http://sockjs.org), which uses polling transports as a fallback for old browsers and hosts behind restrictive proxies.
 
-Link to demo: https://new-rides.herokuapp.com/
+Link to demo: https://pivanlo-real-time-web-app.herokuapp.com/
 
 ### Browser support of SSEs
 
